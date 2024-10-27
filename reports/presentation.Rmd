@@ -1,0 +1,178 @@
+---
+title: "Data Insights Presentation"
+output: html_document
+date: "2024-10-16"
+---
+
+<!-- https://stackoverflow.com/questions/46221816/how-to-integrate-r-projecttemplate-into-r-markdown -->
+`r knitr::opts_knit$set(root.dir='..')`
+
+```{r setup, include=FALSE}
+
+
+
+knitr::opts_chunk$set(echo = TRUE)
+
+library(knitr)
+
+# https://stackoverflow.com/questions/46221816/how-to-integrate-r-projecttemplate-into-r-markdown
+library(ProjectTemplate); load.project()
+
+source("src/01-plots.R", local = knitr::knit_global())
+
+```
+
+
+```{r notes, include=FALSE}
+
+# NOTES ----
+
+# Our local Joint Forward Plan highlights the core purposes of an integrated care system (ICS). 
+
+# Two of these are:
+# - Improving outcomes in population health and care
+# - Tackling inequalities in outcomes, experience and access
+
+# The Population Health Management objectives include Cardiovascular Disease (CVD) Prevention – to develop a programme of population health management interventions targeting High Blood Pressure and Cholesterol
+
+# Presentation brief ----
+
+# The joint forward plan can be found here: https://improvinglivesnw.org.uk/norfolk-and-waveney-5-year-joint-forward-plan/
+
+# - Presentation on:
+#   - trends in CVD and 
+#   - opportunities to reduce variation in primary and secondary prevention.
+
+# You have 10 minutes on the agenda and the deputy director of public health prefers visuals over text
+
+# The slides might include some of the following:
+
+# - trends in CVD outcomes for Norfolk and Waveney 
+#   – mortality and hospital admissions 
+#     – how does Norfolk and Waveney benchmark with other areas?
+
+# - inequality in CVD outcomes by community across Norfolk and Waveney 
+#   – mortality and hospital admissions 
+#     – do some areas see more or less than expected than others
+
+# - for local gp practices: 
+#     - what does variation/inequality look like?
+#     - identify opportunities to improve outcomes in primary prevention – health behaviours e.g. smoking, obesity
+#     - identify opportunities to improve outcomes in secondary prevention – detecting and managing high blood pressure, managing patients with high cholesterol and high CVD risk through use of statins
+
+# - is there anything we need to consider that might impact need for CVD related services in future?
+
+# Resources ----
+
+# Some useful websites with data, information and visuals:
+
+# - National General Practice Profiles: 
+# https://fingertips.phe.org.uk/profile/general-practice
+
+# - Small area health data: 
+# https://www.localhealth.org.uk/
+# https://fingertips.phe.org.uk/profile/local-health/data#page/0/gid/1938133185/pat/402/par/E10000020/ati/3/are/E02005537/yrr/1/cid/4/tbm/1
+
+# - Emergency admissions: 
+# https://fingertips.phe.org.uk/search/hospital%20admissions#page/3/gid/1/pat/15/par/E92000001/ati/502/are/E10000020/iid/90988/age/1/sex/4/cat/-1/ctp/-1/yrr/1/cid/4/tbm/1
+
+# - CVD prevent data and api: 
+# https://data.cvdprevent.nhs.uk/data-explorer
+
+# - Health Inequalities:
+# https://analytics.phe.gov.uk/apps/health-inequalities-dashboard/
+
+# - Analytical methods, fingertips api and guides etc: 
+# https://fingertips.phe.org.uk/profile/guidance/supporting-information/PH-methods
+
+# - Local JSNA reports: 
+# https://www.norfolkinsight.org.uk/jsna/document-library/
+
+
+# Norfolk and Waveney overview ----
+
+# Our Mission
+# To help the people of Norfolk and Waveney to live longer, healthier and happier lives.
+
+# Our Goal 1
+
+# To make sure that people can live as healthy a life as possible.
+
+# This means preventing avoidable illness and tackling the root causes of poor health. 
+# We know the health and wellbeing of people living in some parts of Norfolk and Waveney is significantly poorer – 
+# how healthy you are should not depend on where you live. 
+# This is something we must change.
+
+# Our Goal 2
+
+# To make sure that you only have to tell your story once.
+
+# Too often people have to explain to different health and care professionals what has happened in their lives,
+# why they need help, the health conditions they have and which medication they are on. 
+# Services have to work better together.
+
+# Our Goal 3
+
+# To make Norfolk and Waveney the best place to work in health and care.
+
+# Having the best staff, and supporting them to work well together, will improve the working lives of our staff, 
+# and mean people get high quality, personalised and compassionate care.
+
+
+# Definitions ----
+
+# Cardiovascular disease (CVD): 
+# Umbrella name for conditions that affect your heart or circulation. 
+# These include high blood pressure, stroke and vascular dementia. 
+# Heart disease includes conditions that narrow or block blood vessels (coronary heart disease).
+
+
+```
+
+
+```{r cvd-prev-plots, echo = F}
+
+sex_barplot
+sex_age_sd_barplot
+age_grp_barplot
+dep_quint_barplot
+dep_quint_sd_barplot
+cat("Source: https://data.cvdprevent.nhs.uk/data-explorer?period=18&level=7&area=8065&indicator=12")
+
+```
+
+
+```{r echo = F}
+
+# - trends in CVD outcomes for Norfolk and Waveney 
+#   – mortality and hospital admissions 
+#     – how does Norfolk and Waveney benchmark with other areas?
+
+
+
+
+```
+
+
+```{r prevalence, echo=FALSE}
+
+
+```
+
+
+
+```{r echo=FALSE}
+
+```
+
+```{r echo=FALSE}
+
+```
+
+```{r echo=FALSE}
+
+```
+
+```{r echo=FALSE}
+
+```
