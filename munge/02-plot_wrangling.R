@@ -18,7 +18,7 @@ SelectCvdPrevData <- function(data,
     )
 }
 
-# Wrangle ----
+# CVD prevalence data ----
 
 # Convert CategoryAttribute to factor
 cvd_prevalence$CategoryAttribute <- factor(
@@ -44,6 +44,40 @@ sex_age_sd_data <- SelectCvdPrevData(cvd_prevalence, "Sex - Age Standardised")
 age_grp_data <- SelectCvdPrevData(cvd_prevalence, "Age group")
 dep_quint_data <- SelectCvdPrevData(cvd_prevalence, "Deprivation quintile")
 dep_quint_sd_data <- SelectCvdPrevData(cvd_prevalence, "Deprivation quintile - Age Standardised")
+
+# Compare areas data ----
+
+# For funnel plot:
+
+# Calc upper / lower 95 conf limit
+compare_areas <- compare_areas %>%
+  dplyr::mutate(
+    rate =  Count/Population,
+    overall_rate = sum(Count)/sum(Population),
+    se = sqrt(overall_rate * ((1 - overall_rate) / Population)),
+    lcl95 = overall_rate - (1.96 * se),
+    ucl95 = overall_rate + (1.96 * se)
+  )
+
+# Variables needed for plots 
+max_pop <- max(compare_areas$Population, na.rm = TRUE)
+compare_areas <- compare_areas |> arrange(Population)
+norfolk_pop <- compare_areas |> filter(AreaName == "Norfolk") |> select(Population) |> pull()
+norfolk_value <- compare_areas |> filter(AreaName == "Norfolk") |> select(Value) |> pull()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

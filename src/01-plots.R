@@ -11,8 +11,22 @@ colours <- c(
   '#E1C8B4'
 )
 
-
 # Functions ----
+
+hline <- function(y = 0, color = "black", width = 1) {
+  list(
+    type = "line",
+    x0 = 0,
+    x1 = 1,
+    xref = "paper",
+    y0 = y,
+    y1 = y,
+    line = list(
+      color = color,
+      width = width
+    )
+  )
+}
 
 BarPlot <- function(
     data, 
@@ -137,6 +151,72 @@ dep_quint_sd_barplot <- plot_ly() |>
     )
   )
 
+# Funnel plot ----
+
+# BIG FUDGE!
+plus <- 10
+
+better_pallet <- c(
+  Better = "#8fb935",
+  Similar = "#e6e22e", 
+  Worse = "#e64747"
+)
+
+plot_ly() |>
+  add_trace(
+    data = compare_areas,
+    type = "scatter",
+    mode = "markers",
+    x = ~Population,
+    y = ~Value,
+    color = ~England_compare,
+    colors = better_pallet,
+    size = 10,
+    text = ~AreaName
+  ) |> 
+  add_trace(
+    x = ~Population,
+    y = ~(lcl95 * 100000) + plus,
+    type = "scatter",
+    mode = "line",
+    name = "Lower 95%",
+    line = list(
+      color = "grey"
+    ), 
+    showlegend = FALSE
+  ) |>
+  add_trace(
+    x = ~Population,
+    y = ~(ucl95 * 100000) + plus,
+    type = "scatter",
+    mode = "line",
+    name = "95% confidence",
+    line = list(
+      color = "grey"
+    )
+  ) |>
+  add_text(
+    showlegend = FALSE,
+    x = max_pop + (max_pop * 0.1), 
+    # y = benchmark_eng$Value - (benchmark_eng$Value * 0.005),
+    y = benchmark_eng$Value,
+    text = "England\nbaseline"
+  ) |> 
+  layout(
+    title = paste(
+      "Funnel plot of English counties; ", indicator
+    ),
+    shapes = list(
+      hline(benchmark_eng$Value),
+      list(
+        type = 'circle',
+        xref = 'x', x0 = norfolk_pop - 30000, x1 = norfolk_pop + 30000,
+        yref = 'y', y0 = norfolk_value-10, y1 = norfolk_value+10,
+        fillcolor = NA, line = list(color = 'black'),
+        opacity = 0.5
+      )
+    )
+  ) 
 
 
 
