@@ -90,23 +90,21 @@ compare_region <- rbind.fill(
     )
   )
 
+# Maps ----
 
+# Join MSOA data to geo data
 
+# Remember to use the appropriate pathfile in your case
+shp_file <- "data/BoundaryData/england_msoa_2021.shp"
 
+norfolk_shp <- st_read(shp_file)
 
+norfolk_shp_MSOA <- inner_join(
+  norfolk_shp, MSOA, by = c("msoa21cd" = "Area.Code")
+)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+norfolk_shp_MSOA_top_bottom <- norfolk_shp_MSOA |> left_join(
+  MSOA_top_bottom, by = c("msoa21cd" = "Area.Code")
+)
 
 

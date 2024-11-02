@@ -55,11 +55,9 @@ compare_areas <- compare_areas |> filter(AreaName != "England")
 
 # MSOA Norfolk comparison ----
 
-MSOA <- read.csv("data/MSOA_comparison.csv")
+# MSOA <- read.csv("data/MSOA_comparison.csv")
 
-MSOA |> colnames() |> sort()
-
-MSOA <- MSOA |> 
+MSOA <- MSOA_comparison |> 
   filter(
     Sex == "Persons",
     Indicator.Name %in% c(
@@ -101,12 +99,12 @@ MSOA_aggregate <- MSOA |> group_by(AreaName) |>
 MSOA <- MSOA |> select(AreaName, Area.Code) |> distinct() |> 
   inner_join(MSOA_aggregate, by = "AreaName")
 
-
 # Split out England and Norfolk
 MSOA_eng <- MSOA |> filter(AreaName == "England")
 MSOA_norfolk <- MSOA |> filter(AreaName == "Norfolk")
 MSOA <- MSOA |> filter(!(AreaName %in% c("Norfolk", "England")))
 
+# Add comparison to England back in after aggregating
 MSOA <- MSOA |> mutate(
   compare_england = case_when(
     Value < MSOA_eng$Lower.CI.95.0.limit ~ "Better", 
@@ -115,59 +113,27 @@ MSOA <- MSOA |> mutate(
   )
 ) |> arrange(Value)
 
-
+# Get the top and bottom 10%
 MSOA_top_bottom <- rbind(
   MSOA |> 
     filter(
       Value <= MSOA |> summarize(
         Q90 = quantile(Value, probs = 0.1)
       ) |> pull()
+    ) |> 
+    mutate(
+      top_bottom = "top 10%"
     ),
   MSOA |> 
     filter(
       Value >= MSOA |> summarize(
         Q90 = quantile(Value, probs = 0.9)
       ) |> pull()
+    ) |> 
+    mutate(
+      top_bottom = "bottom 10%"
     )
 ) |> data.frame()
-
-
-MSOA_top_bottom
-
-# https://maczokni.github.io/crime_mapping_textbook/making-maps-in-r.html
-
-library(sf)
-# Remember to use the appropriate pathfile in your case
-shp_name <- "data/BoundaryData/england_msoa_2021.shp"
-
-norfolk_shp <- st_read(shp_name)
-
-
-
-
-norfolk_shp <- inner_join(
-  norfolk_shp, MSOA, by = c("msoa21cd" = "Area.Code")
-)
-
-ggplot() + 
-  geom_sf(
-    data = norfolk_shp, 
-    aes(fill = Value)
-    )+
-  scale_fill_gradient(low = "yellow", high = "red")+ 
-  theme_void()
-
-ggplot() + 
-  geom_sf(
-    data = norfolk_shp, 
-    aes(fill = compare_england)
-  )+
-  scale_fill_manual(values = better_pallet)+
-  theme_void()
-
-
-
-
 
 
 

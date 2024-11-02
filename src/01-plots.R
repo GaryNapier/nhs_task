@@ -251,6 +251,35 @@ region_bar <- plot_ly() |>
     )
   )
 
+# Maps ----
+
+# https://maczokni.github.io/crime_mapping_textbook/making-maps-in-r.html
+
+# Norfolk ~ England discrete
+MSOA_compare_eng_plot <- ggplot() + 
+  geom_sf(
+    data = norfolk_shp_MSOA, 
+    aes(fill = compare_england)
+  )+
+  scale_fill_manual(values = better_pallet)+
+  theme_void()
+
+# Norfolk ~ England value
+MSOA_values_plot <- ggplot() + 
+  geom_sf(
+    data = norfolk_shp_MSOA, 
+    aes(fill = Value)
+  )+
+  scale_fill_gradient(low = "yellow", high = "red")+ 
+  theme_void()
+
+# Norfolk top / bottom 10%
+MSOA_top_bottom_plot <- ggplot(data = norfolk_shp_MSOA_top_bottom) + 
+  geom_sf(
+    aes(fill = top_bottom)
+  )+
+  scale_fill_manual(values = c("#e64747", "#8fb935"))+ 
+  theme_void()
 
 
 

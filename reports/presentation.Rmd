@@ -17,6 +17,7 @@ library(knitr)
 library(ProjectTemplate); load.project()
 
 source("src/01-plots.R", local = knitr::knit_global())
+source("src/02-tables.R", local = knitr::knit_global())
 
 ```
 
@@ -134,9 +135,9 @@ source("src/01-plots.R", local = knitr::knit_global())
 
 ```
 
-## Part 1 - trends in CVD outcomes for Norfolk and Waveney 
-## – Mortality and hospital admissions 
-## – How does Norfolk and Waveney benchmark with other areas?
+#### Part 1 - trends in CVD outcomes for Norfolk and Waveney 
+#### – Mortality and hospital admissions 
+#### – How does Norfolk and Waveney benchmark with other areas?
 
 ---
 
@@ -177,41 +178,51 @@ cat("Source: https://fingertips.phe.org.uk/search/hospital%20admissions#page/3/g
 
 ```
 
-## Part 2 - Inequality in CVD outcomes by community across Norfolk and Waveney 
-## – Mortality and hospital admissions 
-## – Do some areas see more or less than expected than others
+---
 
-"Deaths from circulatory disease, all ages, standardised mortality ratio", 
-"Deaths from coronary heart disease, all ages, standardised mortality ratio",         
-"Deaths from stroke, all ages, standardised mortality ratio"  
+#### Part 2 - Inequality in CVD outcomes by community across Norfolk and Waveney 
+#### – Mortality and hospital admissions 
+#### – Do some areas see more or less than expected than others
 
-Deaths from circulatory disease, coronary heart disease, stroke, all ages, standardised mortality ratio (averaged).
+Deaths from circulatory disease, coronary heart disease, stroke, all ages, standardised mortality ratio (averaged) at MSOA*.
 
-```{r echo=FALSE}
+*MSOA = "Middle level Super Output Area"
 
-# MSOA = "Middle level Super Output Area"
+```{r map-plots, echo=FALSE, warning=FALSE, message=FALSE}
+
+MSOA_compare_eng_plot
+MSOA_values_plot
 
 ```
 
+Top and bottom 10% Norfolk MSOA
+
+```{r MSOA-top-bottom, echo=FALSE, echo=FALSE, warning=FALSE, message=FALSE}
+
+MSOA_top_bottom_reactable
+
+MSOA_top_bottom_plot
+
+cat("Source: https://fingertips.phe.org.uk/profile/local-health/data#page/0/gid/1938133185/pat/402/par/E10000020/ati/3/are/E02005537/yrr/1/cid/4/tbm/1")
+
+```
+
+--- 
+
+#### Part 3 - for GP practices: 
+#### - What does variation/inequality look like?
+#### - Identify opportunities to improve outcomes in primary prevention – health behaviours e.g. smoking, obesity
+#### - Identify opportunities to improve outcomes in secondary prevention – detecting and managing high blood pressure, managing patients with high cholesterol and high CVD risk through use of statins
+
+```{r echo=FALSE}
+
+```
 
 ```{r echo=FALSE}
 
 # TODO
 
 # - Add "Recent trend" to part 1 
-
-```
-
-## Part 3 - for GP practices: 
-## - What does variation/inequality look like?
-## - Identify opportunities to improve outcomes in primary prevention – health behaviours e.g. smoking, obesity
-## - Identify opportunities to improve outcomes in secondary prevention – detecting and managing high blood pressure, managing patients with high cholesterol and high CVD risk through use of statins
-
-```{r echo=FALSE}
-
-```
-
-```{r echo=FALSE}
 
 ```
 
