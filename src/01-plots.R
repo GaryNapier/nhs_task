@@ -159,10 +159,17 @@ plus <- 10
 better_pallet <- c(
   Better = "#8fb935",
   Similar = "#e6e22e", 
-  Worse = "#e64747"
+  Worse = "#e64747",
+  `Not compared` = "grey"
 )
 
-plot_ly() |>
+mrg <- list(
+  l = 50, r = 50,
+  b = 50, t = 50,
+  pad = 20
+)
+
+funnel_plot <- plot_ly() |>
   add_trace(
     data = compare_areas,
     type = "scatter",
@@ -204,8 +211,12 @@ plot_ly() |>
   ) |> 
   layout(
     title = paste(
-      "Funnel plot of English counties; ", indicator
+      "Funnel plot of English counties.\n", indicator
     ),
+    yaxis = list(
+      title = 'Admissions per 100k'
+    ),
+    margin = mrg,
     shapes = list(
       hline(benchmark_eng$Value),
       list(
@@ -218,6 +229,27 @@ plot_ly() |>
     )
   ) 
 
+# Bar plot - Norfolk vs England & region:
+
+region_bar <- plot_ly() |> 
+  add_trace(
+    data = compare_region, 
+    type = "bar", 
+    x = ~AreaName, 
+    y = ~Value, 
+    color = ~England_compare,
+    colors = better_pallet,
+    error_y = ~list(
+      array = abs(Value - Upper.CI.95.0.limit), 
+      color = "black"
+    )
+  ) |> 
+  layout(
+    title = "Norfolk vs England and region", 
+    yaxis = list(
+      title = "Admissions per 100k"
+    )
+  )
 
 
 
