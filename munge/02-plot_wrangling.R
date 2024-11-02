@@ -47,7 +47,9 @@ dep_quint_sd_data <- SelectCvdPrevData(cvd_prevalence, "Deprivation quintile - A
 
 # Compare areas data ----
 
-# For funnel plot:
+# Comparing Norfolk to England and other regions
+
+# For funnel and bar plots:
 
 # Calc upper / lower 95 conf limit
 compare_areas <- compare_areas %>%
@@ -64,6 +66,30 @@ max_pop <- max(compare_areas$Population, na.rm = TRUE)
 compare_areas <- compare_areas |> arrange(Population)
 norfolk_pop <- compare_areas |> filter(AreaName == "Norfolk") |> select(Population) |> pull()
 norfolk_value <- compare_areas |> filter(AreaName == "Norfolk") |> select(Value) |> pull()
+compare_region <- rbind.fill(
+  compare_areas |> filter(
+    AreaName %in% c(
+      "Norfolk", 
+      "Suffolk", 
+      "Essex", 
+      "Cambridgeshire"
+    )
+  ), 
+  benchmark_eng
+) |> 
+  mutate(
+    AreaName = factor(
+      AreaName, 
+      levels = c(
+        "England", 
+        "Cambridgeshire", 
+        "Essex", 
+        "Norfolk", 
+        "Suffolk"
+      )
+    )
+  )
+
 
 
 
