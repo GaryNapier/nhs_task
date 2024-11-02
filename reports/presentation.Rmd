@@ -9,8 +9,6 @@ date: "2024-10-16"
 
 ```{r setup, include=FALSE}
 
-
-
 knitr::opts_chunk$set(echo = TRUE)
 
 library(knitr)
@@ -64,17 +62,24 @@ source("src/01-plots.R", local = knitr::knit_global())
 
 # Resources ----
 
-# Some useful websites with data, information and visuals:
+# National:
 
-# - National General Practice Profiles: 
-# https://fingertips.phe.org.uk/profile/general-practice
+# - Emergency admissions: 
+# https://fingertips.phe.org.uk/search/hospital%20admissions#page/3/gid/1/pat/15/par/E92000001/ati/502/are/E10000020/iid/90988/age/1/sex/4/cat/-1/ctp/-1/yrr/1/cid/4/tbm/1
+
+# Regional:
 
 # - Small area health data: 
 # https://www.localhealth.org.uk/
 # https://fingertips.phe.org.uk/profile/local-health/data#page/0/gid/1938133185/pat/402/par/E10000020/ati/3/are/E02005537/yrr/1/cid/4/tbm/1
 
-# - Emergency admissions: 
-# https://fingertips.phe.org.uk/search/hospital%20admissions#page/3/gid/1/pat/15/par/E92000001/ati/502/are/E10000020/iid/90988/age/1/sex/4/cat/-1/ctp/-1/yrr/1/cid/4/tbm/1
+
+
+# - National General Practice Profiles: 
+# https://fingertips.phe.org.uk/profile/general-practice
+
+
+
 
 # - CVD prevent data and api: 
 # https://data.cvdprevent.nhs.uk/data-explorer
@@ -129,8 +134,15 @@ source("src/01-plots.R", local = knitr::knit_global())
 
 ```
 
+## Part 1 - trends in CVD outcomes for Norfolk and Waveney 
+## – Mortality and hospital admissions 
+## – How does Norfolk and Waveney benchmark with other areas?
 
-```{r cvd-prev-plots, echo = F}
+---
+
+#### Prevalence
+
+```{r cvd-prev-plots, echo=FALSE, warning=FALSE, message=FALSE}
 
 sex_barplot
 sex_age_sd_barplot
@@ -141,25 +153,63 @@ cat("Source: https://data.cvdprevent.nhs.uk/data-explorer?period=18&level=7&area
 
 ```
 
+---
 
-```{r echo = F}
+#### Funnel plot
 
-# - trends in CVD outcomes for Norfolk and Waveney 
-#   – mortality and hospital admissions 
-#     – how does Norfolk and Waveney benchmark with other areas?
+```{r funnel-plot, echo=FALSE, warning=FALSE, message=FALSE}
 
+funnel_plot
+cat("Source: https://fingertips.phe.org.uk/search/hospital%20admissions#page/3/gid/1/pat/15/par/E92000001/ati/502/are/E10000020/iid/90988/age/1/sex/4/cat/-1/ctp/-1/yrr/1/cid/4/tbm/1")
 
+```
 
+#### Region bar plot
+
+```{r region-bar, echo=FALSE, warning=FALSE, message=FALSE}
+
+region_bar
+cat("Source: https://fingertips.phe.org.uk/search/hospital%20admissions#page/3/gid/1/pat/15/par/E92000001/ati/502/are/E10000020/iid/90988/age/1/sex/4/cat/-1/ctp/-1/yrr/1/cid/4/tbm/1")
+
+```
+
+```{r echo=FALSE}
+
+```
+
+## Part 2 - Inequality in CVD outcomes by community across Norfolk and Waveney 
+## – Mortality and hospital admissions 
+## – Do some areas see more or less than expected than others
+
+"Deaths from circulatory disease, all ages, standardised mortality ratio", 
+"Deaths from coronary heart disease, all ages, standardised mortality ratio",         
+"Deaths from stroke, all ages, standardised mortality ratio"  
+
+Deaths from circulatory disease, coronary heart disease, stroke, all ages, standardised mortality ratio (averaged).
+
+```{r echo=FALSE}
+
+# MSOA = "Middle level Super Output Area"
 
 ```
 
 
-```{r prevalence, echo=FALSE}
+```{r echo=FALSE}
 
+# TODO
+
+# - Add "Recent trend" to part 1 
 
 ```
 
+## Part 3 - for GP practices: 
+## - What does variation/inequality look like?
+## - Identify opportunities to improve outcomes in primary prevention – health behaviours e.g. smoking, obesity
+## - Identify opportunities to improve outcomes in secondary prevention – detecting and managing high blood pressure, managing patients with high cholesterol and high CVD risk through use of statins
 
+```{r echo=FALSE}
+
+```
 
 ```{r echo=FALSE}
 
