@@ -1,5 +1,5 @@
 ---
-title: "Data Insights Presentation"
+title: "Data Insights Presentation - Gary Napier"
 output: html_document
 date: "2024-10-16"
 ---
@@ -20,7 +20,6 @@ source("src/01-plots.R", local = knitr::knit_global())
 source("src/02-tables.R", local = knitr::knit_global())
 
 ```
-
 
 ```{r notes, include=FALSE}
 
@@ -61,40 +60,6 @@ source("src/02-tables.R", local = knitr::knit_global())
 
 # - is there anything we need to consider that might impact need for CVD related services in future?
 
-# Resources ----
-
-# National:
-
-# - Emergency admissions: 
-# https://fingertips.phe.org.uk/search/hospital%20admissions#page/3/gid/1/pat/15/par/E92000001/ati/502/are/E10000020/iid/90988/age/1/sex/4/cat/-1/ctp/-1/yrr/1/cid/4/tbm/1
-
-# Regional:
-
-# - Small area health data: 
-# https://www.localhealth.org.uk/
-# https://fingertips.phe.org.uk/profile/local-health/data#page/0/gid/1938133185/pat/402/par/E10000020/ati/3/are/E02005537/yrr/1/cid/4/tbm/1
-
-
-
-# - National General Practice Profiles: 
-# https://fingertips.phe.org.uk/profile/general-practice
-
-
-
-
-# - CVD prevent data and api: 
-# https://data.cvdprevent.nhs.uk/data-explorer
-
-# - Health Inequalities:
-# https://analytics.phe.gov.uk/apps/health-inequalities-dashboard/
-
-# - Analytical methods, fingertips api and guides etc: 
-# https://fingertips.phe.org.uk/profile/guidance/supporting-information/PH-methods
-
-# - Local JSNA reports: 
-# https://www.norfolkinsight.org.uk/jsna/document-library/
-
-
 # Norfolk and Waveney overview ----
 
 # Our Mission
@@ -132,57 +97,115 @@ source("src/02-tables.R", local = knitr::knit_global())
 # These include high blood pressure, stroke and vascular dementia. 
 # Heart disease includes conditions that narrow or block blood vessels (coronary heart disease).
 
+```
+
+
+```{r resources, include=FALSE}
+
+# Resources ----
+
+# Part 1 
+
+# - Emergency admissions: 
+# https://fingertips.phe.org.uk/search/hospital%20admissions#page/3/gid/1/pat/15/par/E92000001/ati/502/are/E10000020/iid/90988/age/1/sex/4/cat/-1/ctp/-1/yrr/1/cid/4/tbm/1
+
+# Part 2 
+
+# - Small area health data: 
+# https://www.localhealth.org.uk/
+# https://fingertips.phe.org.uk/profile/local-health/data#page/0/gid/1938133185/pat/402/par/E10000020/ati/3/are/E02005537/yrr/1/cid/4/tbm/1
+
+# Part 3 
+
+# - National General Practice Profiles: 
+# https://fingertips.phe.org.uk/profile/general-practice
+
+# - Local JSNA reports: 
+# https://www.norfolkinsight.org.uk/jsna/document-library/
+
+# - CVD prevent data and api: 
+# https://data.cvdprevent.nhs.uk/data-explorer
+
+# - Health Inequalities:
+# https://analytics.phe.gov.uk/apps/health-inequalities-dashboard/
+
+# General
+
+# - Analytical methods, fingertips api and guides etc: 
+# https://fingertips.phe.org.uk/profile/guidance/supporting-information/PH-methods
 
 ```
 
-#### Part 1 - trends in CVD outcomes for Norfolk and Waveney 
-#### – Mortality and hospital admissions 
-#### – How does Norfolk and Waveney benchmark with other areas?
-
 ---
 
-#### Prevalence
+### Part 1 - Trends in CVD outcomes for Norfolk and Waveney 
 
-```{r cvd-prev-plots, echo=FALSE, warning=FALSE, message=FALSE}
+#### Prevalence
+Prevalence of GP recorded cardiovascular disease (wide definition)
+
+Breakdown by sex (age standardised), age group, and depravation quintile (age standardised):
+
+```{r cvd-prev-plots, echo=FALSE, warning=FALSE, message=FALSE, fig.height = 3, fig.width = 6}
 
 sex_barplot
 sex_age_sd_barplot
 age_grp_barplot
 dep_quint_barplot
 dep_quint_sd_barplot
+
 cat("Source: https://data.cvdprevent.nhs.uk/data-explorer?period=18&level=7&area=8065&indicator=12")
 
 ```
 
+Summary:
+
+- Overall prevalence is 7.95%, compared to 6.44% nationally
+- Prevalence of CVD is significantly higher in males
+- Prevalence is increases significantly at 60+ 
+- Males age 80+ have highest prevalence
+- Proportion of difference between male and female stays the same with age
+- When age standardised, most deprived areas have highest prevalence at 8.25%
+
 ---
 
-#### Funnel plot
+#### - How does Norfolk and Waveney benchmark with other areas?
+
+#### Funnel plot - Mortality and hospital admissions 
+- Using coronary heart disease as proxy for all CVD
+- Population vs hospital admissions per 100k
+- Funnel plot shows expected admissions given population size, within 95% confidence interval
 
 ```{r funnel-plot, echo=FALSE, warning=FALSE, message=FALSE}
 
 funnel_plot
+
 cat("Source: https://fingertips.phe.org.uk/search/hospital%20admissions#page/3/gid/1/pat/15/par/E92000001/ati/502/are/E10000020/iid/90988/age/1/sex/4/cat/-1/ctp/-1/yrr/1/cid/4/tbm/1")
 
 ```
+
+- Norfolk overall is almost exactly average compared with England baseline (380 vs 387, respectively, hospital admissions per 100k)
+- Range in England is 676 (Tameside, Manchester) and 201 (Wokingham, Berkshire)
 
 #### Region bar plot
 
-```{r region-bar, echo=FALSE, warning=FALSE, message=FALSE}
+```{r region-bar, echo=FALSE, warning=FALSE, message=FALSE, fig.height = 3, fig.width = 8}
 
 region_bar
+
 cat("Source: https://fingertips.phe.org.uk/search/hospital%20admissions#page/3/gid/1/pat/15/par/E92000001/ati/502/are/E10000020/iid/90988/age/1/sex/4/cat/-1/ctp/-1/yrr/1/cid/4/tbm/1")
 
 ```
 
-```{r echo=FALSE}
-
-```
+- Only Cambridgeshire is significantly worse 456 compared with England
+- Not sure Suffolk is correctly categorised as "better"
+- Overall very similar to England
 
 ---
 
-#### Part 2 - Inequality in CVD outcomes by community across Norfolk and Waveney 
+### Part 2 - Inequality in CVD outcomes by community across Norfolk and Waveney 
+
 #### – Mortality and hospital admissions 
-#### – Do some areas see more or less than expected than others
+#### – Do some areas see more or less than expected than others?
 
 Deaths from circulatory disease, coronary heart disease, stroke, all ages, standardised mortality ratio (averaged) at MSOA*.
 
@@ -195,7 +218,11 @@ MSOA_values_plot
 
 ```
 
-Top and bottom 10% Norfolk MSOA
+- There is variation in CVD mortality across the county
+- Highest areas in King's Lynn, parts of Norwich and Great Yarmouth
+- These seem to be the most urbanised areas
+
+**Top and bottom 10% Norfolk MSOA**
 
 ```{r MSOA-top-bottom, echo=FALSE, echo=FALSE, warning=FALSE, message=FALSE}
 
@@ -207,12 +234,73 @@ cat("Source: https://fingertips.phe.org.uk/profile/local-health/data#page/0/gid/
 
 ```
 
+- Yarmouth and Gorleston appear four times in the worst 10% of the county
+
 --- 
 
-#### Part 3 - for GP practices: 
-#### - What does variation/inequality look like?
-#### - Identify opportunities to improve outcomes in primary prevention – health behaviours e.g. smoking, obesity
-#### - Identify opportunities to improve outcomes in secondary prevention – detecting and managing high blood pressure, managing patients with high cholesterol and high CVD risk through use of statins
+### Part 3 - For GP practices, what does variation/inequality look like?
+
+#### - Identify opportunities to improve outcomes in primary prevention: 
+##### – health behaviours e.g. smoking, obesity
+
+- Taking example GP surgeries in the best (Old Catton Medical Practice) and worst (The Park Surgery) areas, and comparing to immediate region (Norwich PCN, Great Yarmouth and Northern Villages PCN) and England
+
+- Time series of trends in primary prevention - smoking and obesity
+
+```{r smoking, echo=FALSE, echo=FALSE, warning=FALSE, message=FALSE, fig.width = 10}
+
+smoking_plot
+
+cat("Source: https://fingertips.phe.org.uk/profile/general-practice/data#page/4/gid/3000010/pat/204/par/U13557/ati/7/are/D82013/iid/91280/age/188/sex/4/cat/-1/ctp/-1/yrr/1/cid/4/tbm/1/page-options/cin-ci-4_tre-ao-0_tre-do-0")
+
+```
+
+```{r obesity, echo=FALSE, echo=FALSE, warning=FALSE, message=FALSE, fig.width = 10}
+
+obesity_plot
+
+obesity_no_covid_plot
+
+cat("Source: https://fingertips.phe.org.uk/profile/general-practice/data#page/4/gid/3000010/pat/204/par/U13557/ati/7/are/D82013/iid/92588/age/168/sex/4/cat/-1/ctp/-1/yrr/1/cid/4/tbm/1/page-options/cin-ci-4_tre-ao-0_tre-do-0")
+
+```
+
+- Great Yarmouth has significantly higher prevalence of smoking and obesity than Norwich/Old Catton and England
+
+- Not sure what happened to the data on obesity around covid 
+
+- Overall smoking is going down, but still proportionally higher in Yarmouth
+
+- Strange uptick in Yarmouth in 2016
+
+- Obesity is slightly increasing everywhere
+
+- As with smoking, the prevalence in Yarmouth is somewhat higher
+
+#### - Identify opportunities to improve outcomes in secondary prevention 
+#####  - detecting and managing high blood pressure, managing patients with high cholesterol and high CVD risk through use of statins
+
+```{r hypertension, echo=FALSE, echo=FALSE, warning=FALSE, message=FALSE, fig.width = 10}
+
+hypertension_plot
+
+cat("Source: https://fingertips.phe.org.uk/profile/general-practice/data#page/4/gid/3000010/pat/204/par/U13557/ati/7/are/D82013/iid/219/age/1/sex/4/cat/-1/ctp/-1/yrr/1/iid2/91280/age2/188/sex2/4/cat2/-1/ctp2/-1/yrr2/1/cid/4/tbm/1/page-options/cin-ci-4_tre-do-0_tre-ao-0")
+
+```
+
+- As with primary prevention, hypertension is significantly higher in Yarmouth than Norwich / Old Catton
+
+- Overall trends show slight increase everywhere, though this is less clear in Yarmouth with big drops around 2016, but increasing again shortly after 
+
+- Yarmouth overall appears very high. Is the data correct here? 
+
+#### - Is there anything we need to consider that might impact need for CVD related services in future?
+
+- Although average for England, Norfolk shows variation across the county in CVD prevalence, hospital admissions and primary/secondary indicators of CVD such as smoking, obesity and hypertension.
+
+- The worse areas for CVD are in urban areas such as parts of Norwich and Great Yarmouth. Presumably this overlaps somewhat with the most deprived having the highest CVD prevalence. 
+
+- Although smoking is decreasing, obesity is increasing.
 
 ```{r echo=FALSE}
 
@@ -220,10 +308,6 @@ cat("Source: https://fingertips.phe.org.uk/profile/local-health/data#page/0/gid/
 
 ```{r echo=FALSE}
 
-# TODO
-
-# - Add "Recent trend" to part 1 
-
 ```
 
 ```{r echo=FALSE}
@@ -237,3 +321,4 @@ cat("Source: https://fingertips.phe.org.uk/profile/local-health/data#page/0/gid/
 ```{r echo=FALSE}
 
 ```
+
