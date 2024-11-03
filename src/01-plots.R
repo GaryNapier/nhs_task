@@ -281,6 +281,79 @@ MSOA_top_bottom_plot <- ggplot(data = norfolk_shp_MSOA_top_bottom) +
   scale_fill_manual(values = c("#e64747", "#8fb935"))+ 
   theme_void()
 
+# Smoking ----
+
+smoking_plot <- plot_ly() |> 
+  add_trace(
+    data = smoking,
+    x = ~Time.period,
+    y = ~Value, 
+    color = ~AreaName,
+    type = "scatter", 
+    mode = "lines+markers"
+  ) |> 
+  layout(
+    title = unique(smoking$Indicator.Name), 
+    yaxis = list(
+      title = "%"
+    )
+  )
 
 
+# Obesity ----
+
+obesity_plot <- plot_ly() |> 
+  add_trace(
+    data = obesity,
+    x = ~Time.period,
+    y = ~Value, 
+    color = ~AreaName,
+    type = "scatter", 
+    mode = "lines+markers"
+  ) |> 
+  layout(
+    title = unique(obesity$Indicator.Name), 
+    yaxis = list(
+      title = "%"
+    )
+  )
+
+obesity_no_covid_plot <- plot_ly() |> 
+  add_trace(
+    data = obesity |> filter(Time.period != "2020/21"),
+    x = ~Time.period,
+    y = ~Value, 
+    color = ~AreaName,
+    type = "scatter", 
+    mode = "lines+markers"
+  ) |> 
+  layout(
+    title = paste(
+      unique(obesity$Indicator.Name), 
+      "\n Covid excluded"
+    ), 
+    yaxis = list(
+      title = "%"
+    )
+  )
+
+# Hypertension 
+
+hypertension_plot <- plot_ly() |> 
+  add_trace(
+    data = hypertension,
+    x = ~Time.period,
+    y = ~Value, 
+    color = ~AreaName,
+    type = "scatter", 
+    mode = "lines+markers"
+  ) |> 
+  layout(
+    title = paste(
+      unique(hypertension$Indicator.Name)
+    ), 
+    yaxis = list(
+      title = "%"
+    )
+  )
 
