@@ -136,6 +136,57 @@ MSOA_top_bottom <- rbind(
 ) |> data.frame()
 
 
+# Primary prevention ----
+
+area_levels <- c(
+  "England", 
+  "Norwich PCN", 
+  "Old Catton Medical Practice", 
+  "Great Yarmouth and Northern Villages PCN", 
+  "The Park Surgery"
+)
+
+# Smoking
+
+smoking <- old_catton_smoking |> 
+  rbind(yarmouth_smoking) |> 
+  unique() |> 
+  arrange(AreaName) |> 
+  mutate(
+    AreaName = factor(
+      AreaName, levels = area_levels
+    )
+  )
+
+
+# Obesity
+
+obesity <- old_catton_obesity |> 
+  rbind(yarmouth_obesity) |> 
+  unique() |> 
+  arrange(AreaName) |> 
+  mutate(
+    AreaName = factor(
+      AreaName, levels = area_levels
+    )
+  )
+
+# Secondary prevention ----
+
+hypertension <- old_catton_hypertension |> 
+  rbind(yarmouth_hypertension) |> 
+  unique() |> 
+  mutate(
+    AreaName = factor(
+      AreaName, levels = area_levels
+    )
+  )
+
+
+
+
+
+
 
 
 
